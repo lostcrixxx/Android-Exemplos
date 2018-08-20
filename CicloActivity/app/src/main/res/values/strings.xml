@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CicloActivity</string>
+
+    <string name="hello_world">No Logcat, selecione Debug e procure MeuTeste</string>
+    <string name="action_settings">Configurações</string>
+    <string name="sms">SMS</string>
+</resources>
