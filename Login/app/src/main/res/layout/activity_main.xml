@@ -4,52 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:paddingTop="80dp"
+    tools:context=".LoginActivity">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_marginTop="134dp"
-        android:text="Email" />
-
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:layout_marginTop="60dp">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textView4"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/txtEmail"
-        android:layout_marginTop="234dp"
-        android:text="Senha" />
-
-    <EditText
-        android:id="@+id/txtSenha"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textPassword" />
+        android:layout_marginTop="130dp"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/txtSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/senha"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/chkSalvar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="190dp"
+        android:text="@string/salvar_dados" />
 
     <Button
         android:id="@+id/btnAcessar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="126dp"
-        android:layout_marginStart="76dp"
-        android:text="Acessar" />
+        android:layout_marginBottom="115dp"
+        android:text="@string/acessar" />
+
+    <Button
+        android:id="@+id/btnCadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/btnAcessar"
+        android:layout_marginEnd="0dp"
+        android:text="@string/registrar" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:layout_toStartOf="@+id/btnCadastrar"
+        android:text="" />
+
+
 
 </RelativeLayout>
