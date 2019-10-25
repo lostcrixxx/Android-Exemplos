@@ -15,7 +15,7 @@
 
         SQLiteStatement stmt = db.compileStatement(sql);
 
-        for (int i = 0; i <= insp.size(); i++) {
+        for (int i = 0; i < insp.size(); i++) {
             stmt.bindLong(1, insp.get(i).getId());
             stmt.bindDouble(2, insp.get(i).getName());
             stmt.bindString(3, insp.get(i).getDescription());
@@ -25,6 +25,7 @@
 //            android.util.Log.e("DatabaseManager", "Teste insert NTEvent PROCESSANDO " + count++);
         }
 
+//        android.util.Log.i("DatabaseManager", "Teste insert NTEvent FIM ");
         db.setTransactionSuccessful();
         db.endTransaction();
 
