@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         Button gravar = (Button) findViewById(R.id.btnGravar);
         Button limpar = (Button) findViewById(R.id.btnLimpar);
         Button recuperar = (Button) findViewById(R.id.btnRecuperar);
+		
+		// Fragment
+		// prefs = this.getActivity().getSharedPreferences("preferencias", Context.MODE_PRIVATE);
 
         gravar.setOnClickListener(new View.OnClickListener() {
             @Override
