@@ -1,5 +1,7 @@
 package br.com.envolvedesenvolve.buttons;
 
+import android.app.DialogFragment;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -54,8 +56,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(MainActivity.this, AddSwitchListActivity.class);
+                startActivity(i);
+//                showDialog(new AddSwitchListActivity());
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
 
@@ -141,5 +146,25 @@ public class MainActivity extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
+
+
+//        public void showDialog(DialogFragment dialogFragment) {
+//            //mStackLevel++;
+//
+//            // DialogFragment.show() will take care of adding the fragment
+//            // in a transaction.  We also want to remove any currently showing
+//            // dialog, so make our own transaction and take care of that here.
+//            android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+//            android.app.Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+//            if (prev != null) {
+//                DialogFragment df = (DialogFragment) prev;
+//                df.dismiss();
+//                ft.remove(prev);
+//            }
+//            ft.addToBackStack(null);
+//
+//            // Create and show the dialog.
+//            dialogFragment.show(ft, "dialog");
+//        }
     }
 }
