@@ -1,4 +1,4 @@
-// artifacts.gradle
+// build.gradle(Module: app)
 
 android.applicationVariants.all { variant ->
     variant.outputs.each { output ->
