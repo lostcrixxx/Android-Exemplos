@@ -16,9 +16,10 @@ ou
 </application>
 
 // Class
-ActionBar bar = getActionBar();
+ActionBar actionBar = getActionBar();
 if(bar != null){
-    bar.setDisplayShowHomeEnabled(true);
-    bar.setLogo(R.drawable.ic_launcher);
-    bar.setDisplayUseLogoEnabled(true);
+    actionBar.setDisplayShowHomeEnabled(true);
+    actionBar.setLogo(R.drawable.ic_launcher);
+    actionBar.setDisplayUseLogoEnabled(true);
+	actionBar.setDisplayHomeAsUpEnabled(true);   //show back button
 }
