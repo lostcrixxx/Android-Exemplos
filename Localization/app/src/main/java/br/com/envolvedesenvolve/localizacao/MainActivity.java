@@ -83,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
 
         locationManager.requestLocationUpdates("gps", 10000, 0, listener);
     }
+	
+	private LatLng myLocation(GoogleMap mMap){
+        LatLng point;
+        Location myLocation = mMap.getMyLocation();
+//        Log.e("location", "Localização Lat " + myLocation.getLatitude() + " Lng " + myLocation.getLongitude());
+
+        return point = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+    }
 }
 
 
