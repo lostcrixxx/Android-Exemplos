@@ -110,7 +110,10 @@ public class MainActivity extends AppCompatActivity {
             directionPositionList.add(new LatLng(-9.790976, -48.552847));
             directionPositionList.add(new LatLng(-9.790668, -48.552642));
 
-            PolylineOptions polylineOptions = DirectionConverter.createPolyline(getBaseContext(), directionPositionList, 5, Color.RED);
+            PolylineOptions polylineOptions = new PolylineOptions();
+            polylineOptions.color(Color.RED);
+            polylineOptions.width(5);
+            polylineOptions.addAll(directionPositionList);
             mMap.addPolyline(polylineOptions);
 
             centralizeCamera(directionPositionList.get(0));
