@@ -91,6 +91,31 @@ public class MainActivity extends AppCompatActivity {
 
         return point = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
     }
+	
+	private void polyLine(){
+		            ArrayList<LatLng> directionPositionList = new ArrayList<>();
+
+            directionPositionList.add(new LatLng(-9.802749, -48.572226));
+            directionPositionList.add(new LatLng(-9.801639, -48.569049));
+            directionPositionList.add(new LatLng(-9.801179, -48.566720));
+            directionPositionList.add(new LatLng(-9.799868, -48.563180));
+            directionPositionList.add(new LatLng(-9.798448, -48.560857));
+            directionPositionList.add(new LatLng(-9.798138, -48.560346));
+            directionPositionList.add(new LatLng(-9.796958, -48.558412));
+            directionPositionList.add(new LatLng(-9.796523, -48.557701));
+            directionPositionList.add(new LatLng(-9.793447, -48.554541));
+            directionPositionList.add(new LatLng(-9.791401, -48.553141));
+            directionPositionList.add(new LatLng(-9.791248, -48.553035));
+            directionPositionList.add(new LatLng(-9.791198, -48.553001));
+            directionPositionList.add(new LatLng(-9.790976, -48.552847));
+            directionPositionList.add(new LatLng(-9.790668, -48.552642));
+
+            PolylineOptions polylineOptions = DirectionConverter.createPolyline(getBaseContext(), directionPositionList, 5, Color.RED);
+            mMap.addPolyline(polylineOptions);
+
+            centralizeCamera(directionPositionList.get(0));
+            updateZoomCamera(15.0f);
+	}
 }
 
 
