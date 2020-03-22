@@ -4,41 +4,49 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import br.com.envolvedesenvolve.alcoolaqui.model.Product;
+import br.com.envolvedesenvolve.alcoolaqui.model.User;
+
 /**
  * Created by Cristiano M. on 21/03/2020
+ * modifield by Cristiano M. on 21/03/2020
  */
-public class ProductTable {
+public class ProductTable extends HelperDB {
     private static final String TAG = "ProductTable";
 
-    private static final String TABLE_USER = "users";
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_NOME = "nome";
-    private static final String COLUMN_EMAIL = "email";
-    private static final String COLUMN_SENHA = "senha";
-    private static final String COLUMN_IMEI = "imei";
-    private static final String COLUMN_DT_INC = "dt_inc";
-    private static final String COLUMN_DT_SYNC = "dt_upd";
+    public static final String TABLE_NAME = "product";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_FK_USER = "fk_user";
+    public static final String COLUMN_NOME = "nome";
+    public static final String COLUMN_PORCENT = "porcent";
+    public static final String COLUMN_TAMANHO = "tamanho";
+    public static final String COLUMN_VALOR = "valor";
+    public static final String COLUMN_TITLE_LOCAL = "title_local";
+    public static final String COLUMN_ENDERECO = "endereco";
+    public static final String COLUMN_DT_INC = "dt_inc";
 
-    private SQLiteOpenHelper dbHelper = null;
+    public ProductTable(Context context) {
+        super(context);
+    }
 
     // Database creation SQL statement
     public static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS "
-            + TABLE_USER
+            + TABLE_NAME
             + "("
             + COLUMN_ID + " integer PRIMARY KEY AUTOINCREMENT, "
-            + COLUMN_NOME + " text, "
-            + COLUMN_EMAIL + " text NOT NULL, "
-            + COLUMN_SENHA + " text NOT NULL, "
-            + COLUMN_IMEI + " integer, "
-            + COLUMN_DT_INC + " text , " // NOT NULL
-            + COLUMN_DT_SYNC + " text"
+            + COLUMN_FK_USER + " text, "
+            + COLUMN_NOME + " text NOT NULL, "
+            + COLUMN_PORCENT + " text NOT NULL, "
+            + COLUMN_TAMANHO + " integer, "
+            + COLUMN_VALOR + " text, " // NOT NULL
+            + COLUMN_TITLE_LOCAL + " text, "
+            + COLUMN_ENDERECO + " text, "
+            + COLUMN_DT_INC + " text" // NOT NULL
             + ");";
 
     private final List<String> tableColumns = Arrays.asList(COLUMN_ID);
@@ -48,39 +56,23 @@ public class ProductTable {
     }
 
     public static String getName() {
-        return TABLE_USER;
+        return TABLE_NAME;
     }
 
-    public boolean insertData(String nome, String email, String senha) {
-        Log.e(TAG, "Inserindo dados");
-
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("nome", nome);
-        cv.put("email", email);
-        cv.put("senha", senha);
-
-        long result = db.insert(TABLE_USER, null, cv);
-        if (result == -1)
-            return false;
-        else
-            return true;
-    }
-
-    public List<String> getAllNotes(Context context) {
+    public List<String> getAllNotes() {
         List<String> notes = new ArrayList<>();
 
         // Select All Query
-        String selectQuery = "SELECT  * FROM users";
+        String selectQuery = "SELECT * FROM " + TABLE_NAME;
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
 //                Note note = new Note();
-//                note.setId(cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_ID)));
+//                notes.setId(cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_ID)));
                 notes.add(cursor.getString(0));
                 notes.add(cursor.getString(1));
                 notes.add(cursor.getString(2));
@@ -89,11 +81,43 @@ public class ProductTable {
             } while (cursor.moveToNext());
         }
 
-        // close db connection
-        db.close();
-
-        // return notes list
+        db.close(); // close db connection
         return notes;
     }
 
+    public ArrayList<Product> getAllProds() {
+        ArrayList<Product> prodList = new ArrayList<>();
+
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Product prod = new Product();
+                prod.setId(cursor.getInt(cursor.getColumnIndex(ProductTable.COLUMN_ID)));
+                prod.setFk_user(cursor.getInt(cursor.getColumnIndex(ProductTable.COLUMN_FK_USER)));
+                prod.setNome(cursor.getString(cursor.getColumnIndex(ProductTable.COLUMN_NOME)));
+                prod.setPorcent(cursor.getFloat(cursor.getColumnIndex(ProductTable.COLUMN_PORCENT)));
+                prod.setTamanho(cursor.getFloat(cursor.getColumnIndex(ProductTable.COLUMN_TAMANHO)));
+                prod.setValor(cursor.getFloat(cursor.getColumnIndex(ProductTable.COLUMN_VALOR)));
+                prod.setTitleLocal(cursor.getString(cursor.getColumnIndex(ProductTable.COLUMN_TITLE_LOCAL)));
+                prod.setEndereco(cursor.getString(cursor.getColumnIndex(ProductTable.COLUMN_ENDERECO)));
+                prod.setDt_inc(cursor.getString(cursor.getColumnIndex(ProductTable.COLUMN_DT_INC)));
+
+                prodList.add(prod);
+
+            } while (cursor.moveToNext());
+        }
+
+        db.close(); // close db connection
+        return prodList;
+    }
+
+    public void setValuesDatabase(ContentValues cv) {
+        insertValueOnTable(TABLE_NAME, cv);
+    }
 }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,16 +20,14 @@ import br.com.envolvedesenvolve.alcoolaqui.model.User;
 public class UserTable extends HelperDB{
     private static final String TAG = "UserTable";
 
-    private static final String TABLE_USER = "users";
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_NOME = "nome";
-    private static final String COLUMN_EMAIL = "email";
-    private static final String COLUMN_SENHA = "senha";
-    private static final String COLUMN_IMEI = "imei";
-    private static final String COLUMN_DT_INC = "dt_inc";
-    private static final String COLUMN_DT_UPD = "dt_upd";
-
-//    private SQLiteOpenHelper dbHelper;
+    public static final String TABLE_NAME = "users";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_NOME = "nome";
+    public static final String COLUMN_EMAIL = "email";
+    public static final String COLUMN_SENHA = "senha";
+    public static final String COLUMN_IMEI = "imei";
+    public static final String COLUMN_DT_INC = "dt_inc";
+    public static final String COLUMN_DT_UPD = "dt_upd";
 
     public UserTable(Context context) {
         super(context);
@@ -36,15 +35,15 @@ public class UserTable extends HelperDB{
 
     // Database creation SQL statement
     public static final String DATABASE_CREATE = "CREATE TABLE IF NOT EXISTS "
-            + TABLE_USER
+            + TABLE_NAME
             + "("
             + COLUMN_ID + " integer PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_NOME + " text, "
             + COLUMN_EMAIL + " text NOT NULL, "
             + COLUMN_SENHA + " text NOT NULL, "
             + COLUMN_IMEI + " integer, "
-            + COLUMN_DT_INC + " text , " // NOT NULL
-            + COLUMN_DT_UPD + " text"
+            + COLUMN_DT_INC + " text , " // todo NOT NULL
+            + COLUMN_DT_UPD + " text "
             + ");";
 
     private final List<String> tableColumns = Arrays.asList(COLUMN_ID);
@@ -54,14 +53,14 @@ public class UserTable extends HelperDB{
     }
 
     public static String getName() {
-        return TABLE_USER;
+        return TABLE_NAME;
     }
 
     public List<String> getAllNotes() {
         List<String> notes = new ArrayList<>();
 
         // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_USER;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -87,7 +86,7 @@ public class UserTable extends HelperDB{
         ArrayList<User> notes = new ArrayList<>();
 
         // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_USER;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -97,12 +96,12 @@ public class UserTable extends HelperDB{
             do {
                 User user = new User();
                 user.setId(cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_ID)));
-                user.setId(cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_NOME)));
-                user.setId(cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_EMAIL)));
-                user.setId(cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_SENHA)));
-                user.setId(cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_IMEI)));
-                user.setId(cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_DT_INC)));
-                user.setId(cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_DT_UPD)));
+                user.setNome(cursor.getString(cursor.getColumnIndex(UserTable.COLUMN_NOME)));
+                user.setEmail(cursor.getString(cursor.getColumnIndex(UserTable.COLUMN_EMAIL)));
+                user.setSenha(cursor.getString(cursor.getColumnIndex(UserTable.COLUMN_SENHA)));
+                user.setImei(cursor.getString(cursor.getColumnIndex(UserTable.COLUMN_IMEI)));
+                user.setDt_inc(cursor.getString(cursor.getColumnIndex(UserTable.COLUMN_DT_INC)));
+                user.setDt_upd(cursor.getString(cursor.getColumnIndex(UserTable.COLUMN_DT_UPD)));
 
                 notes.add(user);
 
@@ -111,5 +110,15 @@ public class UserTable extends HelperDB{
 
         db.close(); // close db connection
         return notes;
+    }
+
+    public void setValuesDatabase(Context context, ContentValues cv) {
+
+        boolean resp = insertValueOnTable(TABLE_NAME, cv);
+        if(resp){
+            Toast.makeText(context, "Usuário cadastrado!", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(context, "ERRO usuário não cadastrado", Toast.LENGTH_LONG).show();
+        }
     }
 }

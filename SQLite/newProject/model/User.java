@@ -1,5 +1,9 @@
 package br.com.envolvedesenvolve.alcoolaqui.model;
 
+import android.content.ContentValues;
+
+import br.com.envolvedesenvolve.alcoolaqui.db.UserTable;
+
 public class User {
 
     private int id;
@@ -64,5 +68,15 @@ public class User {
 
     public void setDt_upd(String dt_upd) {
         this.dt_upd = dt_upd;
+    }
+
+    public ContentValues getContentValues() {
+        ContentValues cv = new ContentValues();
+        cv.put(UserTable.COLUMN_ID, this.getId());
+        cv.put(UserTable.COLUMN_NOME, this.getNome());
+        cv.put(UserTable.COLUMN_EMAIL, this.getEmail());
+        cv.put(UserTable.COLUMN_SENHA, this.getSenha());
+
+        return cv;
     }
 }
