@@ -60,4 +60,33 @@ public class HelperDB extends SQLiteOpenHelper {
         else
             return true;
     }
+	
+	public int updateValueOnTable(String table, ContentValues values) {
+//        Log.i("EventMaintenance", "save update");
+        values.put("dt_inc", mFormat.format(new Date()));
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String whereClause = "_ID = ?";
+        String[] whereArgs = {values.getAsString("_ID")};
+        int result;
+        try {
+            return db.update(table, values, whereClause, whereArgs);
+        } catch (Exception e) {
+            Log.e(TAG, "ERRO no updateValueOnTable");
+            result = -1;
+        }
+        return result;
+    }
+
+    public int deleteValueOnTable(String table, ContentValues values) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String whereClause = "_ID = ?";
+        String[] whereArgs = {values.getAsString("_ID")};
+        int result;
+        try {
+            result = db.delete(table, whereClause, whereArgs);
+        } catch (Exception e) {
+            result = -1;
+        }
+        return result;
+    }
 }
