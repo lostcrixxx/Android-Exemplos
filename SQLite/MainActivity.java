@@ -4,6 +4,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+		
+		HelperDB db = HelperDB.getInstance(getApplicationContext());
+
+        // test
+        ContentValues cv = new ContentValues();
+        cv.put("name", "teste");
+        cv.put("type", "objeto");
+        cv.put("price", 99.00);
+        db.insertValueOnTable(DataTable.getName(), cv);
+
+        DataTable dt = new DataTable(getApplicationContext());
+        Log.e(TAG, "List: " +  Arrays.toString(dt.getAll().toArray()));
     }
 
     @Override
