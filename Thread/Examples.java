@@ -14,6 +14,13 @@ Runnable runnable = new Runnable() {
 };
 runnable.start();
 
+Thread thread = new Thread(new Runnable(){
+  @Override
+  public void run(){
+  }
+});
+thread.start();
+
 Dispatcher.postOnUiThread(new Runnable() {
 		@Override
 	public void run(){
