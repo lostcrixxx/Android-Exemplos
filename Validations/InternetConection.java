@@ -1,3 +1,20 @@
+// add policy or create in a separate thread from the main one
+StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
+StrictMode.setThreadPolicy(policy);	
+public boolean isInternetAvailable() throws UnknownHostException {
+	boolean result = false;
+
+	try {
+		InetAddress ipAddr = InetAddress.getByName("google.com");
+		Log.e(TAG, "isConnected(): " + !ipAddr.equals(""));
+		result = !ipAddr.equals("");
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return result;
+}
+
+
 @IntRange(from = 0, to = 3)
 public static int isConnected(Context context) {
     int result = 0; // Returns connection type. 0: none; 1: mobile data; 2: wifi
